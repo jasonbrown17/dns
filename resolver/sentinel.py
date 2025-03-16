@@ -26,7 +26,7 @@ def get_a_addresses(url_addy):
         for x, y in nserver.items():
             resolver = dns.resolver.Resolver(configure=False)
             resolver.nameservers = [y]
-            print('#-', x, y, '-#')
+            print('#-', x, '(', y, ')', '-#')
             query_result = resolver.query(url_addy, 'A')
             print('---------------')
             for fqdn in query_result:
@@ -36,7 +36,11 @@ def get_a_addresses(url_addy):
         cnt = len(set(unique_addresses))
         print('Total number of unique addresses: ', cnt, '\n')
     except dns.resolver.NoAnswer:
-        print('***ERROR*** No A records exist for ', url_addy)
+        print('***ERROR*** >>> No A records exist for ', url_addy)
+    except dns.resolver.LifetimeTimeout:
+        print('\n')
+        print('***ERROR*** >>> Age timeout\n')
+        pass
 
 def get_aaaa_addresses(url_addy):
 
@@ -57,7 +61,7 @@ def get_aaaa_addresses(url_addy):
         for x, y in nserver.items():
             resolver = dns.resolver.Resolver(configure=False)
             resolver.nameservers = [y]
-            print('#-', x, y, '-#')
+            print('#-', x, '(', y, ')', '-#')
             query_result = resolver.query(url_addy, 'AAAA')
             print('---------------')
             for fqdn in query_result:
@@ -68,7 +72,11 @@ def get_aaaa_addresses(url_addy):
         print('Total number of unique addresses: ',cnt, '\n')
     except dns.resolver.NoAnswer:
         print('\n')
-        print('***ERROR*** No AAAA records exist for', url_addy)
+        print('***ERROR*** >>> No AAAA records exist for', url_addy)
+    except dns.resolver.LifetimeTimeout:
+        print('\n')
+        print('***ERROR*** >>> Age timeout')
+        pass
 
 def get_ns_server(url_addy):
 
