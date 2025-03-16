@@ -1,10 +1,11 @@
 '''
-Sentinel is used to query a singular record across 
+Sentinel is used to query a singular record across
 several public DNS servers
 '''
 
 import csv
 import dns.resolver
+from dns_records import records
 
 def get_a_addresses(url_addy):
 
@@ -23,7 +24,7 @@ def get_a_addresses(url_addy):
         print('# IPv4 Addresses #')
         print('##################\n')
         for x, y in nserver.items():
-            resolver = dns.resolver.Resolver(configure=False)
+            resolver = dns.resolver.Resolver
             resolver.nameservers = [y]
             print('#-', x, y, '-#')
             query_result = dns.resolver.resolve(url_addy, 'A')
@@ -33,7 +34,7 @@ def get_a_addresses(url_addy):
                 unique_addresses.append(fqdn.to_text())
             print('---------------')
         cnt = len(set(unique_addresses))
-        print('Total number of unique addresses: ',cnt, '\n')
+        print('Total number of unique addresses: ', cnt, '\n')
     except dns.resolver.NoAnswer:
         print('***ERROR*** No A records exist for ', url_addy)
 
@@ -71,45 +72,27 @@ def get_aaaa_addresses(url_addy):
 
 def get_ns_server(url_addy):
 
-    '''
-    Return the name server records for the URL
-    '''
 
-    query_result = dns.resolver.resolve(url_addy, 'NS')
-    print('################')
-    print('# Name Servers #')
-    print('################')
-    for fqdn in query_result:
-        print(fqdn.to_text())
-    print('\n')
+    '''
+    Call get_ns_server from ../dns_records/records.py
+    '''
+    records.get_ns_server(url_addy)
 
 def get_soa_server(url_addy):
 
-    '''
-    Return Start of Authority for the URL
-    '''
 
-    query_result = dns.resolver.resolve(url_addy, 'soa')
-    print('######################')
-    print('# Start of Authority #')
-    print('######################')
-    for fqdn in query_result:
-        print(fqdn.to_text())
-    print('\n')
+    '''
+    Call get_soa_server from ../dns_records/records.py
+    '''
+    records.get_soa_server(url_addy)
 
 def get_txt_records(url_addy):
 
-    '''
-    Return the TXT records
-    '''
 
-    query_result = dns.resolver.resolve(url_addy, 'txt')
-    print('###############')
-    print('# TXT Records #')
-    print('###############')
-    for fqdn in query_result:
-        print(fqdn.to_text())
-    print('\n')
+    '''
+    Call get_txt_server from ../dns_records/records.py
+    '''
+    records.get_txt_records(url_addy)
 
 def main():
 

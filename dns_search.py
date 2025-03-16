@@ -31,6 +31,7 @@ def main():
                         --soa\n\
                         --ns\n\
                         --txt\n\
+                        --mx\n\
                         --sentinel\n\
                         --version\n\
                 ')
@@ -46,6 +47,9 @@ def main():
         elif option == 'ns':
             url_addy = input('Enter in URL: ')
             records.get_ns_server(url_addy)
+        elif option == 'mx':
+            url_addy = input('Enter in URL: ')
+            records.get_mx_records(url_addy)
         elif option == 'txt':
             url_addy = input('Enter in URL: ')
             records.get_txt_records(url_addy)

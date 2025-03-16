@@ -82,3 +82,18 @@ def get_txt_records(url_addy):
         print('\n')
     except dns.resolver.NXDOMAIN:
         print('\nDomain ', url_addy, 'does not exist')
+
+def get_mx_records(url_addy):
+    '''
+    Return the TXT records of the domain
+    '''
+    try:
+        query_result = dns.resolver.resolve(url_addy, 'MX')
+        print('##############')
+        print('# MX Records #')
+        print('##############\n')
+        for fqdn in query_result:
+            print(fqdn.to_text())
+        print('\n')
+    except dns.resolver.NXDOMAIN:
+        print('\nDomain ', url_addy, 'does not exist')
