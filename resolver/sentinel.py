@@ -24,10 +24,10 @@ def get_a_addresses(url_addy):
         print('# IPv4 Addresses #')
         print('##################\n')
         for x, y in nserver.items():
-            resolver = dns.resolver.Resolver
+            resolver = dns.resolver.Resolver(configure=False)
             resolver.nameservers = [y]
             print('#-', x, y, '-#')
-            query_result = dns.resolver.resolve(url_addy, 'A')
+            query_result = resolver.query(url_addy, 'A')
             print('---------------')
             for fqdn in query_result:
                 print(fqdn.to_text())
@@ -58,7 +58,7 @@ def get_aaaa_addresses(url_addy):
             resolver = dns.resolver.Resolver(configure=False)
             resolver.nameservers = [y]
             print('#-', x, y, '-#')
-            query_result = dns.resolver.resolve(url_addy, 'AAAA')
+            query_result = resolver.query(url_addy, 'AAAA')
             print('---------------')
             for fqdn in query_result:
                 print(fqdn.to_text())

@@ -85,7 +85,7 @@ def get_txt_records(url_addy):
 
 def get_mx_records(url_addy):
     '''
-    Return the TXT records of the domain
+    Return the MX records of the domain
     '''
     try:
         query_result = dns.resolver.resolve(url_addy, 'MX')
